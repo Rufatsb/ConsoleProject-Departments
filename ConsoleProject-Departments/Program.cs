@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ConsoleProject_Departments.Models;
+using System;
 
 namespace ConsoleProject_Departments
 {
@@ -6,7 +7,14 @@ namespace ConsoleProject_Departments
     {
         static void Main(string[] args)
         {
-            ;
+            Department department = new Department();
+
+
+
+
+
+
+
         }
     }
 }

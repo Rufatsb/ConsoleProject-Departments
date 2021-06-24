@@ -1,4 +1,5 @@
 ﻿using ConsoleProject_Departments.Models;
+using ConsoleProject_Departments.Services;
 using System;
 
 namespace ConsoleProject_Departments
@@ -7,14 +8,14 @@ namespace ConsoleProject_Departments
     {
         static void Main(string[] args)
         {
-            Department department = new Department();
 
+            HumanResourceManager h1 = new HumanResourceManager();
 
-
-
-
-
-
+            
         }
     }
 }
+
+
+
+

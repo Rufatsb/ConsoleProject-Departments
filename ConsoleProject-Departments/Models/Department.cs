@@ -11,18 +11,18 @@ namespace ConsoleProject_Departments.Models
         public string Name { get; set; }
         public int WorkerLimit { get; set; }
         public int SalaryLimit { get; set; }
-        public Employee[] Employees;
+        public List<Employee> Employees { get; set; }
 
         //Department- classinda her bir departamentin Name-Adi,WorkerLimit-muessedeki iscilerin maximum sayini bildiren limit,
         //SalaryLimitiscilere umumi odenilecek maaslarin ceminim maximumu ve Employees arrayi yaradildi.
 
         public Department()
         {
-            Employees = new Employee[0];
+            Employees = new List<Employee>();
         }
-        //Employees arrayi initiliase olundu ve baslangic Lengthi 0 verildi.
+        ////Employees arrayi initiliase olundu ve baslangic Lengthi 0 verildi.
 
-        public Department(string name,int workerlimit,int salarylimit)
+        public Department(string name,int workerlimit,int salarylimit) : this()
         {
             Name = name;
             WorkerLimit = workerlimit;
@@ -39,9 +39,9 @@ namespace ConsoleProject_Departments.Models
             {
                 sum += employee.Salary;
             }
-            if (Employees.Length != 0)
+            if (Employees.Count!= 0)
             {
-                avg = sum / this.Employees.Length;
+                avg = sum / this.Employees.Count;
                 return avg;
 
             }

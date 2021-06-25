@@ -12,13 +12,13 @@ namespace ConsoleProject_Departments.Services
         private Department department { get; set; }
 
         public List<Department> Departments { get; set; }
-      
 
-        
+       
+
 
         public void AddDepartment(string name, int workerlimit, int salarylimit)
         {
-            Departments = new List<Department>();
+           
             
             if (Departments.Any(n => n.Name == name && n.WorkerLimit == workerlimit && n.SalaryLimit == salarylimit))
             {
@@ -27,7 +27,7 @@ namespace ConsoleProject_Departments.Services
             
 
             
-
+            
         }
 
         public List<Department> GetDepartments()
@@ -38,20 +38,15 @@ namespace ConsoleProject_Departments.Services
         public void EditDepartments(string name, string newname)
         {
 
-            if (newname != null)
+            if (Departments.Any(n => n.Name != newname))
             {
-                  department.Name =name ;
-
-                
-                
+                department.Name = newname;
             }
             else
             {
-                department.Name = newname;
-                
+                department.Name = name;
             }
 
-            
         }
         public void AddEmployee(string fullname, string position, int salary, string departmentName, string no, List<Employee> Employees)
         {
@@ -74,9 +69,20 @@ namespace ConsoleProject_Departments.Services
             
 
         }
-       public  void EditEmployee(string no, string fullname, string position)
+       public  void EditEmployee(string no, string fullname, string position, List<Employee> Employees)
         {
+            foreach (Employee employee in Employees)
+            {
+                if (employee.No != null && employee.FullName != null && employee.Position != null )
+                {
+                    employee.No = no;
+                    employee.FullName = fullname;
+                    employee.Position = position;
 
+                }
+
+                
+            }
         }
 
     }

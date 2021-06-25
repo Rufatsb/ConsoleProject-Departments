@@ -20,7 +20,7 @@ namespace ConsoleProject_Departments.Services
         void EditDepartments(string name, string newname);
         void AddEmployee(string fullname, string position, int salary, string departmentName,string no, List<Employee> Employees);
         void RemoveEmployee(string no, string departmentname, Employee employee, List<Employee> Employees);
-        void EditEmployee(string no, string fullname, string position);
+        void EditEmployee(string no, string fullname, string position, List<Employee> Employees);
 
 
 

@@ -16,20 +16,21 @@ namespace ConsoleProject_Departments.Models
         //Department- classinda her bir departamentin Name-Adi,WorkerLimit-muessedeki iscilerin maximum sayini bildiren limit,
         //SalaryLimitiscilere umumi odenilecek maaslarin ceminim maximumu ve Employees arrayi yaradildi.
 
-        public Department()
+         public Department()
         {
-            Employees = new List<Employee>();
-        }
-        ////Employees arrayi initiliase olundu ve baslangic Lengthi 0 verildi.
 
-        public Department(string name,int workerlimit,int salarylimit) : this()
+        }
+
+
+        public Department(string name, int workerlimit, int salarylimit) : this()
         {
             Name = name;
             WorkerLimit = workerlimit;
             SalaryLimit = salarylimit;
+            Employees = new List<Employee>();
         }
         //Ici bos olmayan Department constructoru yaradildi ve yuxarida qeyd etdiyimiz proportiler(Name, WorkerLimit, SalaryLimit)deyisenlere set olundu.
-        
+        ////Employees arrayi initiliase olundu ve baslangic Lengthi 0 verildi.
 
         public int CalcSalaryAverage()
         {

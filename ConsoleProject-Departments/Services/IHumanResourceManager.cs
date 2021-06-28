@@ -13,14 +13,12 @@ namespace ConsoleProject_Departments.Services
     {
         List<Department> Departments { get; set; }
 
-        void AddDepartment(string name, int workerlimit, int salarylimit);
-
-       List <Department > GetDepartments();
-
-        void EditDepartments(string name, string newname);
-        void AddEmployee(string fullname, string position, int salary, string departmentName,string no, List<Employee> Employees);
-        void RemoveEmployee(string no, string departmentname, Employee employee, List<Employee> Employees);
-        void EditEmployee(string no, string fullname, string position, List<Employee> Employees);
+        void AddDepartment(string name, int workerlimit, double salarylimit);
+        List<Department> GetDepartments();
+        void EditDepartaments(string name, string newname);
+        void AddEmployee(string name, string surname, string position, double salary, string departmentname);
+        void RemoveEmployee(string no, string departmentname);
+        void EditEmployee(string no, double salary, string position, string fullname);
 
 
 

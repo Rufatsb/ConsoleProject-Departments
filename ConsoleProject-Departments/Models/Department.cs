@@ -10,19 +10,13 @@ namespace ConsoleProject_Departments.Models
     {
         public string Name { get; set; }
         public int WorkerLimit { get; set; }
-        public int SalaryLimit { get; set; }
+        public double SalaryLimit { get; set; }
         public List<Employee> Employees { get; set; }
 
         //Department- classinda her bir departamentin Name-Adi,WorkerLimit-muessedeki iscilerin maximum sayini bildiren limit,
         //SalaryLimitiscilere umumi odenilecek maaslarin ceminim maximumu ve Employees arrayi yaradildi.
 
-         public Department()
-        {
-
-        }
-
-
-        public Department(string name, int workerlimit, int salarylimit) : this()
+        public Department(string name, int workerlimit, double salarylimit)
         {
             Name = name;
             WorkerLimit = workerlimit;
@@ -32,23 +26,15 @@ namespace ConsoleProject_Departments.Models
         //Ici bos olmayan Department constructoru yaradildi ve yuxarida qeyd etdiyimiz proportiler(Name, WorkerLimit, SalaryLimit)deyisenlere set olundu.
         ////Employees arrayi initiliase olundu ve baslangic Lengthi 0 verildi.
 
-        public int CalcSalaryAverage()
+        public double CalcSalaryAvr()
         {
-            int sum = 0;
-            int avg;
+            double sum = 0;
             foreach (Employee employee in Employees)
             {
                 sum += employee.Salary;
             }
-            if (Employees.Count!= 0)
-            {
-                avg = sum / this.Employees.Count;
-                return avg;
 
-            }
-            else
-                return 0;
-
+            return sum / Employees.Count;
         }
         // Departamentdeki iscilerin maas ortalamasini qaytaran method CalcSalaryAverage yaradildi.Metod Employees arrayindaki Employee tipinden olan her bir iscinin
         // maasini cemleyir ve arrayin uzunluguna bolunmekle ortalama maas tapilir.

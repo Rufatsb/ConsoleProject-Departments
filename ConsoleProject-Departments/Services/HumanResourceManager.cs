@@ -9,81 +9,132 @@ namespace ConsoleProject_Departments.Services
 {
   class HumanResourceManager:IHumanResourceManager
     {
-        private Department department { get; set; }
-
         public List<Department> Departments { get; set; }
 
-       
-
-
-        public void AddDepartment(string name, int workerlimit, int salarylimit)
+        public HumanResourceManager()
         {
-           
-            
-            if (Departments.Any(n => n.Name == name && n.WorkerLimit == workerlimit && n.SalaryLimit == salarylimit))
+            Departments = new List<Department>();
+        }
+        public void AddDepartment(string name, int workerlimit, double salarylimit)
+        {
+            if (name.Length >= 2 && workerlimit >= 1 && salarylimit >= 250)
             {
+                Department department = new Department(name, workerlimit, salarylimit);
                 Departments.Add(department);
             }
-            
+            else
+            {
 
-            
-            
+                Console.WriteLine($"Department adi 2-den kicik ola bilmez,workerlimit 1-den kicik ola bilmez,salarylimit 250-den kicik ola bilmez.");
+            }
+
+
         }
 
         public List<Department> GetDepartments()
         {
             return Departments;
         }
+        public void EditDepartaments(string name, string newname)
+        {
+            if (FindDepartment(newname) != null && name.Length >= 2) return;
 
-        public void EditDepartments(string name, string newname)
+            Department exitDepartment = FindDepartment(name);
+
+            if (exitDepartment != null && newname.Length >= 2)
+            {
+                exitDepartment.Name = newname;
+            }
+
+            else
+            {
+                Console.WriteLine("Departament adini sehv daxil etdiniz ve ya daxil etdiyiniz yeni adin uzunlugu 2-den azdir.");
+
+
+            }
+        }
+
+
+        public void AddEmployee(string name, string surname, string position, double salary, string departmentname)
         {
 
-            if (Departments.Any(n => n.Name != newname))
+            Department department = FindDepartment(departmentname);
+
+            if (position.Length >= 2 && salary >= 250)
+
             {
-                department.Name = newname;
+                Employee employee = new Employee(name, surname, position, salary, departmentname) { };
+                department.Employees.Add(employee);
+
             }
             else
             {
-                department.Name = name;
+                throw new ArgumentOutOfRangeException(position.Length.ToString(), salary.ToString());
+                throw new ArgumentNullException(department.ToString());
             }
 
         }
-        public void AddEmployee(string fullname, string position, int salary, string departmentName, string no, List<Employee> Employees)
+
+        public void RemoveEmployee(string no, string departmentname)
         {
-           
-
-            if (Employees.Any(n => n.FullName == fullname && n.Position == position && n.DepartmentName == departmentName && n.No == no))
+            foreach (Department department in Departments)
             {
-                Employee employee = new Employee();
-
-                Employees.Add(employee);
-            }
-        }
-
-        public void RemoveEmployee(string no, string departmentname, Employee employee, List<Employee> Employees)
-        {
-            if (employee.No == no && employee.DepartmentName == departmentname)
-            {
-                Employees.Remove(employee);
-            }
-            
-
-        }
-       public  void EditEmployee(string no, string fullname, string position, List<Employee> Employees)
-        {
-            foreach (Employee employee in Employees)
-            {
-                if (employee.No != null && employee.FullName != null && employee.Position != null )
+                foreach (Employee employee in department.Employees)
                 {
-                    employee.No = no;
-                    employee.FullName = fullname;
-                    employee.Position = position;
+                    if (employee.No == no && employee.DepartmentName == departmentname)
+                    {
+                        department.Employees.Remove(employee);
+                    }
 
+                    else
+                    {
+                        throw new ArgumentNullException(no, departmentname);
+                    }
                 }
-
-                
             }
         }
+
+
+
+
+
+
+        public void EditEmployee(string no, double salary, string position, string fullname)
+        {
+
+            foreach (Department department in Departments)
+
+                foreach (Employee employee in department.Employees)
+                {
+                    if (employee.No == no)
+                    {
+                        employee.Salary = salary;
+                        employee.Position = position;
+                        employee.Fullname = fullname;
+
+
+                    }
+
+                    else
+                    {
+                        throw new IndexOutOfRangeException(employee.ToString());
+                    }
+                }
+        }
+        // Additional methods 
+
+        public Department FindDepartment(string name)
+        {
+            foreach (Department item in Departments)
+            {
+                if (item.Name == name)
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
 
     }
 

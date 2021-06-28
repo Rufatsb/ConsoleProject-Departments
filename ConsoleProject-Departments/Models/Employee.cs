@@ -9,40 +9,33 @@ namespace ConsoleProject_Departments.Models
 {
     class Employee
     {
-        public string FullName { get; set; }
+       
+        public string Fullname;
         public string Position { get; set; }
-        public int Salary { get; set; }
+        public double Salary { get; set; }
         public string DepartmentName { get; set; }
+        private static readonly int _count = 1000;
         public string No { get; set; }
-        private static int _Count = 1000;
         //Employee-isci classinda her bir isci ucun, Fullname-Ad Soyad,Vezife,Maas,Departament adi,isciye mexsus olan unique Nomre proportyleri qeyd olundu.
 
-        public Employee(string fullname,string position,int salary,string departmentName)
+        public Employee(string name, string surname, string position, double salary, string departmentname)
         {
-            _Count++;
-            No = departmentName.ToUpper()[0].ToString() + departmentName.ToUpper()[1].ToString() + _Count.ToString();
-            FullName = fullname;
+            Fullname = name + surname;
             Position = position;
-            Salary =   salary;
-            DepartmentName = departmentName;
-            
+            Salary = salary;
+            DepartmentName = departmentname;
+            No = departmentname.Substring(0, 2).ToUpper() + _count.ToString();
+
         }
         //Ici bos olmayan Employee constructoru yaradildi ve yuxarida qeyd etdiyimiz proportiler(Fullname, Position, Salary, DepartmentName) deyisenlere set olundu.
         //ToUpper,ToString metodlari vasitesi Departamentin ilk iki herfi ve 1000-den baslayan Count ededi birlesdirilerek her bir isci ucun No(unique number) set olundu.
 
-        public Employee(string name,string surname)
-        {
-            FullName = name + surname;
-        }
 
-        public Employee()
-        {
 
-        }
-    
+
         public override string ToString()
         {
-            return $"{No} {FullName} {Salary} {DepartmentName} {Position}";
+            return $"{Fullname} {Salary} {DepartmentName} {Position} {No}";
         }
     }
     //ToString metodu override olundu ve {No} {FullName} {Salary} {DepartmentName} {Position} stringe cevrildi.

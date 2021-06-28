@@ -95,27 +95,26 @@ namespace ConsoleProject_Departments.Services
 
         public void RemoveEmployee(string no, string departmentname)
         {
-            Department department = FindDepartment(departmentname);
-
-            foreach (Employee employee in department.Employees)
+            Employee employee = new Employee(no, departmentname);
+            foreach (Department department in Departments)
             {
-                if (employee.Position.Length >= 2 && employee.Salary >= 250)
+                bool Check = department.Employees.Any(n => n.DepartmentName == departmentname && n.No == no);
 
+                if (Check == true)
                 {
-
                     department.Employees.Remove(employee);
-
                 }
-                else if (department.Employees.Count ==0)
-                {
-                    Console.WriteLine("Employee silindi");
-                }
-                else
-                {
-                    Console.WriteLine("Sistemde bu nomrede ve adda isci tapilmadi.");
-                }
+               
+                
+                    else
+                    {
+                        Console.WriteLine("Sistemde bu nomrede ve adda isci tapilmadi.");
+                    }
+                
             }
-           
+
+
+         
         }
 
         //This method remove employee from Employees List.

@@ -187,20 +187,7 @@ namespace ConsoleProject_Departments
                         string no = Console.ReadLine();
                         Console.WriteLine("Deyisiklik etmek istediyiniz iscinin departmentname-ni qeyd edin.");
                         string departmentname = Console.ReadLine();
-                        if (employee.No == no && employee.DepartmentName ==departmentname)
-                        {
-                           
-
-                              department.Employees.Remove(employee);
-
-
-                        }
-
-                        else
-                        {
-                            Console.WriteLine("Sistemde bu Nomrede isci tapilmadi.");
-
-                        }
+                        hrm.RemoveEmployee(no, departmentname);
                     }
             }
 

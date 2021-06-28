@@ -35,6 +35,11 @@ namespace ConsoleProject_Departments.Models
         //Ici bos olmayan Employee constructoru yaradildi ve yuxarida qeyd etdiyimiz proportiler(Fullname, Position, Salary, DepartmentName) deyisenlere set olundu.
         //ToUpper,ToString metodlari vasitesi Departamentin ilk iki herfi ve 1000-den baslayan Count ededi birlesdirilerek her bir isci ucun No(unique number) set olundu.
 
+        public Employee(string departmentname,string no)
+        {
+            DepartmentName = departmentname;
+            No = no;
+        }
         #endregion
 
         #region tostring

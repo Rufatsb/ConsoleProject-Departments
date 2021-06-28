@@ -8,24 +8,27 @@ namespace ConsoleProject_Departments.Models
 {
     class Department
     {
-        public string Name { get; set; }
-        public int WorkerLimit { get; set; }
-        public double SalaryLimit { get; set; }
-        public List<Employee> Employees { get; set; }
+        #region props
+        public string Name { get; set; } //Property
+        public int WorkerLimit { get; set; } //Property
+        public double SalaryLimit { get; set; }//Property
+        public List<Employee> Employees { get; set; } // List//
 
-        //Department- classinda her bir departamentin Name-Adi,WorkerLimit-muessedeki iscilerin maximum sayini bildiren limit,
-        //SalaryLimitiscilere umumi odenilecek maaslarin ceminim maximumu ve Employees arrayi yaradildi.
+        #endregion
 
-        public Department(string name, int workerlimit, double salarylimit)
+
+        #region constructor
+        public Department(string name, int workerlimit, double salarylimit) //Department's Constructor 
         {
             Name = name;
             WorkerLimit = workerlimit;
             SalaryLimit = salarylimit;
             Employees = new List<Employee>();
         }
-        //Ici bos olmayan Department constructoru yaradildi ve yuxarida qeyd etdiyimiz proportiler(Name, WorkerLimit, SalaryLimit)deyisenlere set olundu.
-        ////Employees arrayi initiliase olundu ve baslangic Lengthi 0 verildi.
+        //Employees List intialize in Department constructor.
+        #endregion
 
+        #region method CalcSalaryAvr
         public double CalcSalaryAvr()
         {
             double sum = 0;
@@ -36,14 +39,16 @@ namespace ConsoleProject_Departments.Models
 
             return sum / Employees.Count;
         }
-        // Departamentdeki iscilerin maas ortalamasini qaytaran method CalcSalaryAverage yaradildi.Metod Employees arrayindaki Employee tipinden olan her bir iscinin
-        // maasini cemleyir ve arrayin uzunluguna bolunmekle ortalama maas tapilir.
+        //This method calculate average of employees' salary.
+
+        #endregion
+        #region tostring
         public override string ToString()
         {
             return $"{Name} {WorkerLimit} {SalaryLimit}";
         }
-        //ToString metodu override olundu ve {Name} {WorkerLimit} {SalaryLimit} stringe cevrildi.
-
+        //With help ToString method's  {Name} ,{WorkerLimit} and {SalaryLimit} converted to string.
+        #endregion
 
     }
 }

@@ -1,6 +1,7 @@
 ﻿using ConsoleProject_Departments.Models;
 using ConsoleProject_Departments.Services;
 using System;
+using System.Collections.Generic;
 
 namespace ConsoleProject_Departments
 {
@@ -9,6 +10,9 @@ namespace ConsoleProject_Departments
         static void Main(string[] args)
         {
 
+            #region process 
+            // We created hrm object from HumanResourceManager because most of the process goes in HumanResourceManager class ,especially 
+            //most methods locate in there and we use that methods.
             HumanResourceManager hrm = new HumanResourceManager();
 
 
@@ -22,12 +26,12 @@ namespace ConsoleProject_Departments
                 Console.WriteLine("1.1 - Departamentlerin siyahisini gostermek");
                 Console.WriteLine("1.2 - Yeni Department yaratmaq");
                 Console.WriteLine("1.3 - Departament uzerinde deyisiklik etmek");
-                Console.WriteLine("2.1 - Isci elave etmek ");
-                Console.WriteLine("2.2 - Departamentdeki iscilerin siyahisini gostermek");
-                Console.WriteLine("2.3 - Butun iscilerin siyahisini gostermek");
-                Console.WriteLine("2.4 - Isci uzerinde deyisiklik etmek");
-                Console.WriteLine("2.5 - Departamentden isci silinmesi");
-                Console.WriteLine("3 - Cixis");
+                Console.WriteLine("2.1 - Iscinin sisteme elave olunmasi. ");
+                Console.WriteLine("2.2 - Iscinin sistemden silinmesi.");
+                Console.WriteLine("2.3 - Isci uzerinde deyisiklik etmek.");
+                Console.WriteLine("2.4 - Butun iscilerin siyahisini gostermek.");
+                Console.WriteLine("2.5 - Departamentdeki iscilerin siyahisini gostermek.");
+                Console.WriteLine("3   - Cixis");
 
                 Console.WriteLine("\nIcra etmek istediyiniz emeliyyati secin:");
                 answer = Console.ReadLine();
@@ -54,13 +58,13 @@ namespace ConsoleProject_Departments
                         RemoveEmployee(hrm);
                         break;
                     case "2.3":
-                        ShowDepartment(hrm);
+                        EditEmployee(hrm);
                         break;
                     case "2.4":
-                        ShowDepartment(hrm);
+                        ShowEmployees(hrm);
                         break;
                     case "2.5":
-                        ShowDepartment(hrm);
+                        ShowDepartmentEmployees(hrm);
                         break;
                     default:
                         if (answer != "3")
@@ -74,6 +78,10 @@ namespace ConsoleProject_Departments
             } while (answer != "3");
         }
 
+        //With do while loop we start process and wait answer from user ,user only can apply aprropiate values (Which we show to them )
+
+        #endregion
+        #region Program cs Methods
         static void ShowDepartment(HumanResourceManager hrm)
         {
             if (hrm.Departments.Count > 0)
@@ -114,7 +122,7 @@ namespace ConsoleProject_Departments
             string name = Console.ReadLine();
             Console.WriteLine("Departamentin yeni adini daxil edin.");
             string newname = Console.ReadLine();
-            hrm.EditDepartaments(name, newname);
+            hrm.EditDepartments(name, newname);
 
 
 
@@ -135,17 +143,144 @@ namespace ConsoleProject_Departments
             hrm.AddEmployee(name, surname, position, salary, departmentname);
         }
 
-        static void RemoveEmployee(HumanResourceManager hrm)
+        static void EditEmployee(HumanResourceManager hrm)
         {
-            Console.WriteLine("Silmek istediyiniz iscinin Nomresini daxil edin.");
-            string no = Console.ReadLine();
-            Console.WriteLine("Silmek istediyiniz iscinin departmentname-ni daxil edin.");
-            string departmentname = Console.ReadLine();
-            hrm.RemoveEmployee(no, departmentname);
+
+            foreach (Department department in hrm.Departments)
+
+                foreach (Employee employee in department.Employees)
+                {
+                    Console.WriteLine("Deyisiklik etmek istediyiniz iscinin No-sunu qeyd edin.");
+                    string no = Console.ReadLine();
+                    if (employee.No == no)
+                    {
+                        Console.WriteLine($"Iscinin maasi:{employee.Salary},Iscinin vezifesi:{employee.Position},Iscinin ad ve soyadi:{employee.Name}  {employee.SurName}");
+
+                        Console.WriteLine("Isci ucun yeni maas teyin edin. ");
+                        double newsalary = employee.Salary;
+                        newsalary = double.Parse(Console.ReadLine());
+                        Console.WriteLine("Isci ucun yeni vezife teyin edin. ");
+                        string newposition = employee.Position;
+                        newposition = Console.ReadLine();
+
+                        Console.WriteLine($"Yeni maas:{newsalary},yeni vezife:{newposition}");
+
+
+
+                    }
+
+                    else
+                    {
+                        Console.WriteLine("Sistemde bu Nomrede isci tapilmadi.");
+
+                    }
+                }
         }
+            static void RemoveEmployee(HumanResourceManager hrm)
+            {
+
+                foreach (Department department in hrm.Departments)
+
+                    foreach (Employee employee in department.Employees)
+                    {
+                        Console.WriteLine("Silmek  istediyiniz iscinin No-sunu qeyd edin.");
+                        string no = Console.ReadLine();
+                        Console.WriteLine("Deyisiklik etmek istediyiniz iscinin departmentname-ni qeyd edin.");
+                        string departmentname = Console.ReadLine();
+                        if (employee.No == no && employee.DepartmentName ==departmentname)
+                        {
+                           
+
+                              department.Employees.Remove(employee);
+
+
+                        }
+
+                        else
+                        {
+                            Console.WriteLine("Sistemde bu Nomrede isci tapilmadi.");
+
+                        }
+                    }
+            }
+
+        static List<Employee> GetEmployees(HumanResourceManager hrm)
+        {
+            List<Employee> employees = new List<Employee>();
+            foreach (Department department in hrm.Departments)
+            {
+                foreach (Employee employee in department.Employees)
+                {
+                    employees.Add(employee);
+                }
+            }
+            return employees;
+
+        }
+        static void ShowEmployees(HumanResourceManager hrm)
+        {
+            List<Employee> employees = GetEmployees(hrm);
+
+            if (employees.Count > 0)
+            {
+                Console.WriteLine("--------------------------------------");
+                Console.WriteLine(" Isciler:");
+                foreach (var employee in employees)
+                {
+                    Console.WriteLine($"Isci nomresi:{employee.No} Isci adi: {employee.Name} Isci soyadi:{employee.SurName} Iscinin aid oldugu departmentadi:  {employee.DepartmentName}  Iscinin maasi: {employee.Salary}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Sistemde hec bir isci yoxdur.");
+            }
+
+            GetEmployees(hrm);
+        }
+
+        static void ShowDepartmentEmployees(HumanResourceManager hrm)
+        {
+            bool checkdepartment= true;
+            string departmentname;
+
+            
+            do
+            {
+                if (checkdepartment)
+                {
+                    Console.WriteLine("Departament adini daxil edin.");
+                }
+                else
+                {
+                    Console.WriteLine("Daxil etdiyiniz department movcud deyil,yeniden daxil edin:");
+                }
+                departmentname = Console.ReadLine();
+                checkdepartment = false;
+
+            } while (hrm.FindDepartment(departmentname) == null);
+
+
+            if (hrm.FindDepartment(departmentname).Employees.Count > 0)
+            {
+
+                Console.WriteLine("---------------------------------------------------");
+                Console.WriteLine($"{departmentname} Departmentdeki Isciler:");
+                foreach (Employee employee in hrm.FindDepartment(departmentname).Employees)
+                {
+                    Console.WriteLine($"Isci nomresi:{employee.No} Isci adi: {employee.Name} Isci soyadi:{employee.SurName} Iscinin vezifesi:  {employee.Position}  Iscinin maasi: {employee.Salary}");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Secdiyiniz departmentde hec bir isci tapilmadi!!!");
+            }
+
+        }
+        #endregion
 
     }
 }
+
 
 
 

@@ -8,13 +8,22 @@ using ConsoleProject_Departments.Models;
 namespace ConsoleProject_Departments.Services
 {
   class HumanResourceManager:IHumanResourceManager
-    {
-        public List<Department> Departments { get; set; }
 
-        public HumanResourceManager()
+    #region List and constructor
+    // //This class:HumanResourceManager locate in Services folder.In this class have one list(Departments),one constructor  and 7 method all methods'
+    //return type is void.FindDepartment method except all other method inherited from IHumanResourceManager interface.
+    {
+        public List<Department> Departments { get; set; } //Public List property //
+
+        public HumanResourceManager() 
         {
             Departments = new List<Department>();
         }
+        //I used HumanResourceManager's empty  constructor for initialize Departments List.
+
+        #endregion
+
+        #region Main Methods
         public void AddDepartment(string name, int workerlimit, double salarylimit)
         {
             if (name.Length >= 2 && workerlimit >= 1 && salarylimit >= 250)
@@ -30,12 +39,13 @@ namespace ConsoleProject_Departments.Services
 
 
         }
-
+        // This method add department to Departments.
         public List<Department> GetDepartments()
         {
             return Departments;
         }
-        public void EditDepartaments(string name, string newname)
+        // This method show Departments(List).
+        public void EditDepartments(string name, string newname)
         {
             if (FindDepartment(newname) != null && name.Length >= 2) return;
 
@@ -52,7 +62,12 @@ namespace ConsoleProject_Departments.Services
 
 
             }
+
         }
+
+        //With EditDepartments method department's name changes.
+
+
 
 
         public void AddEmployee(string name, string surname, string position, double salary, string departmentname)
@@ -69,33 +84,41 @@ namespace ConsoleProject_Departments.Services
             }
             else
             {
+                Console.WriteLine("1.2-ye qayidib department yaradin.");
                 throw new ArgumentOutOfRangeException(position.Length.ToString(), salary.ToString());
                 throw new ArgumentNullException(department.ToString());
             }
 
         }
 
+        //This method add employee to Employees List.
+
         public void RemoveEmployee(string no, string departmentname)
         {
-            foreach (Department department in Departments)
-            {
-                foreach (Employee employee in department.Employees)
-                {
-                    if (employee.No == no && employee.DepartmentName == departmentname)
-                    {
-                        department.Employees.Remove(employee);
-                    }
+            Department department = FindDepartment(departmentname);
 
-                    else
-                    {
-                        throw new ArgumentNullException(no, departmentname);
-                    }
+            foreach (Employee employee in department.Employees)
+            {
+                if (employee.Position.Length >= 2 && employee.Salary >= 250)
+
+                {
+
+                    department.Employees.Remove(employee);
+
+                }
+                else if (department.Employees.Count ==0)
+                {
+                    Console.WriteLine("Employee silindi");
+                }
+                else
+                {
+                    Console.WriteLine("Sistemde bu nomrede ve adda isci tapilmadi.");
                 }
             }
+           
         }
 
-
-
+        //This method remove employee from Employees List.
 
 
 
@@ -117,24 +140,34 @@ namespace ConsoleProject_Departments.Services
 
                     else
                     {
+                        Console.WriteLine("Sistemde bu adda isci tapilmadi.");
                         throw new IndexOutOfRangeException(employee.ToString());
                     }
                 }
         }
-        // Additional methods 
+
+
+        //With EditEmployee method employee's Fullname,Salary and Position changes. 
+
+        #endregion
+
+
+        #region Additional method
 
         public Department FindDepartment(string name)
         {
-            foreach (Department item in Departments)
+            foreach (Department department in Departments)
             {
-                if (item.Name == name)
+                if (department.Name == name)
                 {
-                    return item;
+                    return department;
                 }
             }
             return null;
         }
+        // FindDepartment check name and find department in Departments List.
 
+        #endregion
 
     }
 

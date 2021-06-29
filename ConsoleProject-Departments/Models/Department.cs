@@ -9,15 +9,18 @@ namespace ConsoleProject_Departments.Models
     class Department
     {
         #region props
-        public string Name { get; set; } //Property
-        public int WorkerLimit { get; set; } //Property
-        public double SalaryLimit { get; set; }//Property
-        public List<Employee> Employees { get; set; } // List//
+
+        // Properties and Employees List
+        public string Name { get; set; } 
+        public int WorkerLimit { get; set; } 
+        public double SalaryLimit { get; set; }
+        public List<Employee> Employees { get; set; } 
 
         #endregion
 
 
         #region constructor
+        //Employees List intialize in Department constructor.
         public Department(string name, int workerlimit, double salarylimit) //Department's Constructor 
         {
             Name = name;
@@ -25,10 +28,11 @@ namespace ConsoleProject_Departments.Models
             SalaryLimit = salarylimit;
             Employees = new List<Employee>();
         }
-        //Employees List intialize in Department constructor.
+        
         #endregion
 
         #region method CalcSalaryAvr
+        //This method calculate average of employees' salary.
         public double CalcSalaryAvr()
         {
             double sum = 0;
@@ -39,15 +43,16 @@ namespace ConsoleProject_Departments.Models
 
             return sum / Employees.Count;
         }
-        //This method calculate average of employees' salary.
+
 
         #endregion
         #region tostring
+        //With help ToString method's  {Name} ,{WorkerLimit} and {SalaryLimit} converted to string.
         public override string ToString()
         {
             return $"{Name} {WorkerLimit} {SalaryLimit}";
         }
-        //With help ToString method's  {Name} ,{WorkerLimit} and {SalaryLimit} converted to string.
+       
         #endregion
 
     }

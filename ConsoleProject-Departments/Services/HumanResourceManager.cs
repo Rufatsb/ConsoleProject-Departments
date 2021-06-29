@@ -95,28 +95,37 @@ namespace ConsoleProject_Departments.Services
 
         public void RemoveEmployee(string no, string departmentname)
         {
-            Employee employee = new Employee(no, departmentname);
-            foreach (Department department in Departments)
-            {
-                bool Check = department.Employees.Any(n => n.DepartmentName == departmentname && n.No == no);
 
-                if (Check == true)
+
+
+            Department removedepartment = Departments.Find(x => x.Name == departmentname);
+            if (string.IsNullOrEmpty(departmentname) || departmentname.Length >= 2 || removedepartment != null)
+            {
+                foreach (Department item in Departments)
                 {
-                    department.Employees.Remove(employee);
-                }
-               
-                
+                    Employee removeemploye = item.Employees.Find(x => x.No == no);
+                    if (removeemploye != null)
+                    {
+                        removedepartment.Employees.Remove(removeemploye);
+
+                    }
                     else
                     {
-                        Console.WriteLine("Sistemde bu nomrede ve adda isci tapilmadi.");
+                        Console.WriteLine("Duzgun no ve ya ad daxil edilmemisdir.");
                     }
-                
+                }
             }
+            else
+            {
+                throw new NullReferenceException();
+            }
+                    
+                }
+               
 
 
-         
-        }
 
+          
         //This method remove employee from Employees List.
 
 

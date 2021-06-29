@@ -13,8 +13,10 @@ namespace ConsoleProject_Departments
             #region process 
             // We created hrm object from HumanResourceManager because most of the process goes in HumanResourceManager class ,especially 
             //most methods locate in there and we use that methods.
-            HumanResourceManager hrm = new HumanResourceManager();
 
+
+            //With do while loop we start process and wait answer from user ,user only can apply aprropiate values (Which we show to them )
+            HumanResourceManager hrm = new HumanResourceManager();
 
             string answer;
 
@@ -78,10 +80,12 @@ namespace ConsoleProject_Departments
             } while (answer != "3");
         }
 
-        //With do while loop we start process and wait answer from user ,user only can apply aprropiate values (Which we show to them )
+       
 
         #endregion
         #region Program cs Methods
+
+        //This method show departments in system.
         static void ShowDepartment(HumanResourceManager hrm)
         {
             if (hrm.Departments.Count > 0)
@@ -98,6 +102,8 @@ namespace ConsoleProject_Departments
 
         }
 
+
+        //This method add department to system.
         static void AddDepartment(HumanResourceManager hrm)
         {
             Console.WriteLine("Department adi daxil edin.");
@@ -114,7 +120,7 @@ namespace ConsoleProject_Departments
 
 
         }
-
+        //This method edit departmentname.
         static void EditDepartment(HumanResourceManager hrm)
         {
 
@@ -127,7 +133,7 @@ namespace ConsoleProject_Departments
 
 
         }
-
+        //AddEmployee method add employee to system.
         static void AddEmployee(HumanResourceManager hrm)
         {
             Console.WriteLine("Sisteme daxil etmek istediyiniz iscinin adini qeyd edin.");
@@ -142,7 +148,7 @@ namespace ConsoleProject_Departments
             string departmentname = Console.ReadLine();
             hrm.AddEmployee(name, surname, position, salary, departmentname);
         }
-
+        //EditEmployee method edit employee salary and position.
         static void EditEmployee(HumanResourceManager hrm)
         {
 
@@ -176,19 +182,15 @@ namespace ConsoleProject_Departments
                     }
                 }
         }
-            static void RemoveEmployee(HumanResourceManager hrm)
-            {
-
-                foreach (Department department in hrm.Departments)
-
-                    foreach (Employee employee in department.Employees)
-                    {
-                        Console.WriteLine("Silmek  istediyiniz iscinin No-sunu qeyd edin.");
-                        string no = Console.ReadLine();
-                        Console.WriteLine("Deyisiklik etmek istediyiniz iscinin departmentname-ni qeyd edin.");
-                        string departmentname = Console.ReadLine();
-                        hrm.RemoveEmployee(no, departmentname);
-                    }
+        //RemoveEmployee method remove employee from system.
+        static void RemoveEmployee(HumanResourceManager hrm)
+            {  
+                Console.WriteLine("Silmek  istediyiniz iscinin No-sunu qeyd edin.");
+                string no = Console.ReadLine();
+                Console.WriteLine("Silmek  istediyiniz  iscinin departmentname-ni qeyd edin.");
+                string departmentname = Console.ReadLine();
+                hrm.RemoveEmployee(no, departmentname);    
+                    
             }
 
         static List<Employee> GetEmployees(HumanResourceManager hrm)
@@ -204,6 +206,7 @@ namespace ConsoleProject_Departments
             return employees;
 
         }
+        //ShowEmployees show all employees in system.
         static void ShowEmployees(HumanResourceManager hrm)
         {
             List<Employee> employees = GetEmployees(hrm);
@@ -224,6 +227,7 @@ namespace ConsoleProject_Departments
 
             GetEmployees(hrm);
         }
+        //ShowDepartmentEmployees method show employees only in appropriate department.
 
         static void ShowDepartmentEmployees(HumanResourceManager hrm)
         {

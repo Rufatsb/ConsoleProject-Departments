@@ -12,6 +12,9 @@ namespace ConsoleProject_Departments.Services
     interface IHumanResourceManager
     {
         #region Interface
+        //This interface:IHumanResourceManager locate in Services folder.In this interface have one list(Departments) and 6 method 5 methods'
+        //return type are  void and one's is List .Method's body has been wrote in HumanResourceManager class.
+
         List<Department> Departments { get; set; }
 
         void AddDepartment(string name, int workerlimit, double salarylimit);
@@ -21,9 +24,7 @@ namespace ConsoleProject_Departments.Services
         void RemoveEmployee(string no, string departmentname);
         void EditEmployee(string no, double salary, string position, string fullname);
 
-        //This interface:IHumanResourceManager locate in Services folder.In this interface have one list(Departments) and 6 method 5 methods'
-        //return type are  void and one's is List .Method's body has been wrote in HumanResourceManager class.
-
+        
         #endregion
 
 
